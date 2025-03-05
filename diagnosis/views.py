@@ -3,7 +3,7 @@ from .models import PlantDisease
 
 
 def disease_search(request):
-    query = request.GET.get('symptom', '')
+    query = request.GET.get('symptoms', '')
     diseases = PlantDisease.objects.filter(
         symptoms_icontains=query) if query else None
     return render(request, 'diagnosis/search.html', {'diseases': diseases, 'query': query})

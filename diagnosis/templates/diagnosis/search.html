@@ -6,11 +6,31 @@
     <title>Search</title>
 </head>
 <body>
-    <h1>Welcome Kenya's Number One Plant Disease Identifier</h1>
+    <h1>Welcome to Kenya's Number One Plant Disease Identifier</h1>
 
     <form method="get">
         <input type="text" name="symptom" placeholder="Enter symptoms (e.g Yellow spots,)" value="{{ query }}">
         <button type="submit">Search</button>
     </form>
+
+    {% if diseases %}
+        <h2>We searched our database and found matches to possible diseases</h2>
+        <ul>
+            {% for disease in diseases %}
+                <li>
+                    <strong>{{ disease.name }}</strong> <br>
+                    <img src="{{ disease.image.url }}" alt="Image" width="150">
+                    <strong>Cause:</strong>{{ disease.cause }} <br>
+                    <strong>Treatment:</strong>{{ disease.treatment }} <br>
+                    <strong>Prevention:</strong>{{ disease.prevention }}
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            {% if query %}
+                <p>No matching diseases found.</p>
+            {% endif %}
+    {% endif %}
+
 </body>
 </html>
