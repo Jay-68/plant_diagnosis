@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import PlantDisease
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 def disease_search(request):
@@ -9,7 +10,13 @@ def disease_search(request):
         Q(symptoms__icontains=query) |
         Q(name__icontains=query)
     ) if query else None
-    return render(request, 'diagnosis/search.html', {'diseases': diseases, 'query': query})
+
+    #Pagination
+    paginator=Paginator(diseases, 5) #Show 5 results per page
+    page_number=request.GET.get('page')
+    page_obj=paginator.get_page(page_number)
+
+    return render(request, 'diagnosis/search.html', {'page_obj': page_obj, 'query': query})
 
 
 def index(request):
