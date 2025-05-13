@@ -11,12 +11,12 @@ def disease_search(request):
         Q(name__icontains=query)
     ) if query else None
 
-    #Pagination
-    paginator=Paginator(diseases, 5) #Show 5 results per page
-    page_number=request.GET.get('page')
-    page_obj=paginator.get_page(page_number)
+    # Pagination
+    paginator = Paginator(query, 5)  # Show 5 results per page... it shows that of shown results thus no results throws an error{catch or sm.n damn}
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'diagnosis/search.html', {'page_obj': page_obj, 'query': query})
+    return render(request, 'diagnosis/search.html', {'page_obj':page_obj, 'query': query})
 
 
 def index(request):
